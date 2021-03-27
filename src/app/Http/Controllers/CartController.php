@@ -80,7 +80,6 @@ class CartController extends Controller
             'product_id' => $request->product_id
         ];
         Cart::create($data);
-
         return $data;
     }
 
