@@ -66,7 +66,6 @@ class CartController extends Controller
     public function store(Request $request)
     {
 
-//        cюда передать с фронта уникальный номер сгенерированный в nuxtserverinit
         $sessionUser = $request->sessionUser;
 
 
