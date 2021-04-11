@@ -17,7 +17,6 @@ services:
     volumes:
       - ./:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
-    network_mode: host
 
   #Nginx Service
   webserver:
@@ -30,4 +29,3 @@ services:
     volumes:
       - ./:/var/www
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
-    network_mode: host
