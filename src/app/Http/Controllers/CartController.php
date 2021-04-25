@@ -88,10 +88,12 @@ class CartController extends Controller
         return Cart::where('product_id', $param)->where('session_user', $param2)->delete();
     }
 
-    public function deleteAll(Request $request)
+    public function deleteAll($param2)
     {
-        $session_token = $request->session()->get('_token');
-        Cart::where('session_token', $session_token)->delete();
+//        $session_token = $request->session()->get('_token');
+
+
+        Cart::where('session_user', $param2)->delete();
     }
 
 }
