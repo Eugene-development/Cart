@@ -11,30 +11,29 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    protected $entity;
+//    protected $entity;
 
     function __construct()
     {
-        $this->entity = Cart::class;
+        //        $this->entity = Cart::class;
     }
 
     public function get(Request $request)
     {
+        $products_id = Cart::where('project_id', $request->bearerToken())
+            ->where('session_user', $request->param)
+            ->pluck('product_id');
+        $products_cart = Product::where('project_id', $request->bearerToken())
+            ->find($products_id)
+            ->map(function($item, $key) {
+                $item->push('quantity');
+                $item['quantity'] = '1';
+                return $item;
+            });
 
 
-//        dd($request->param);
-        $products_id = Cart::where('session_user', $request->param)->pluck('product_id');
-        $products_cart = Product::find($products_id)->map(function ($item, $key) {
-            $item->push('quantity');
-            $item['quantity'] = '1';
-            return $item;
-        });
-
-
-
-        $container = app();
-//        $session_token = $request->session()->get('_token', 'Такой сессии нет');
-
+//        $container = app();
+        //        $session_token = $request->session()->get('_token', 'Такой сессии нет');
 
 
         //Добавить одно значение в сессию
@@ -60,9 +59,6 @@ class CartController extends Controller
 
     }
 
-
-
-
     public function store(Request $request)
     {
 
@@ -76,24 +72,28 @@ class CartController extends Controller
 //        $session_name = $request->session()->get('name');
 
         $data = [
+            'project_id' => $request->bearerToken(),
             'session_user' => $sessionUser,
             'product_id' => $request->product_id
         ];
-        Cart::create($data);
+        Cart::where('project_id', $request->bearerToken())
+            ->create($data);
         return $data;
     }
 
-    public function deleteOne($param, $param2)
+    public function deleteOne(Request $request, $param, $param2)
     {
-        return Cart::where('product_id', $param)->where('session_user', $param2)->delete();
+        return Cart::where('project_id', $request->bearerToken())
+            ->where('product_id', $param)
+            ->where('session_user', $param2)
+            ->delete();
     }
 
-    public function deleteAll($param2)
+    public function deleteAll(Request $request, $param2)
     {
-//        $session_token = $request->session()->get('_token');
-
-
-        Cart::where('session_user', $param2)->delete();
+        Cart::where('project_id', $request->bearerToken())
+            ->where('session_user', $param2)
+            ->delete();
     }
 
 }

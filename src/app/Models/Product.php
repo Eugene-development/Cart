@@ -10,7 +10,7 @@ class Product extends Model
 {
     protected $guarded = [];
 
-    protected $table = 'prod_product';
+    protected $table = 'product';
 
 //    public function category()
 //    {
