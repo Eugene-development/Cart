@@ -12,24 +12,27 @@ class Product extends Model
 
     protected $table = 'product';
 
-//    public function category()
-//    {
-//        return $this->belongsTo(Category::class);
-//    }
-//
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 //    public function action()
 //    {
 //        return $this->belongsTo(Category::class);
 //    }
-//
+
+    public function size()
+    {
+        return $this->hasMany(Size::class);
+    }
+
 //    public function image()
 //    {
-//        return $this->hasMany(Image::class);
+//        return $this->morphMany(Image::class, 'tagable');
 //    }
-//
-//    public function seo()
-//    {
-//        return $this->morphMany(Seo::class, 'tagable');
-//    }
+
+
+
 
 }

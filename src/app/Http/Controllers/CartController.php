@@ -23,16 +23,31 @@ class CartController extends Controller
         $products_id = Cart::where('project_id', $request->bearerToken())
             ->where('session_user', $request->param)
             ->pluck('product_id');
-        $products_cart = Product::where('project_id', $request->bearerToken())
-            ->find($products_id)
+
+
+        return Product::where('project_id', $request->bearerToken())
+            ->where('id', $products_id)
+            //            ->find($products_id)
+            ->with([
+                //                'category' => function($query) use ($request) {
+                //                    $query->where('project_id', $request->bearerToken());
+                //                },
+                //                'image' => function($query) use ($request) {
+                //                    $query->where('project_id', $request->bearerToken());
+                //                },
+                'size' . "." . 'price' => function($query) use ($request) {
+                    $query->where('project_id', $request->bearerToken());
+                },
+            ])->get()
             ->map(function($item, $key) {
                 $item->push('quantity');
                 $item['quantity'] = '1';
                 return $item;
-            });
+            })
+            ;
 
 
-//        $container = app();
+        //        $container = app();
         //        $session_token = $request->session()->get('_token', 'Такой сессии нет');
 
 
@@ -47,15 +62,11 @@ class CartController extends Controller
 //            'key2' => 'value2'
 //        ]);
 
-
-
-
-
 //        $session_token = $request->session()->all();
 //        $response = $container->make(ContractCart::class)->productsCart($session_user);
 //        return new Resource($response);
 
-        return $products_cart;
+        //        return $products_cart;
 
     }
 
