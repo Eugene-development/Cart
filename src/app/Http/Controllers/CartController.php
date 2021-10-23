@@ -43,6 +43,7 @@ class CartController extends Controller
             ])
             ->get()
             ->find($products_id)
+            ->values()
             ->map(function($item, $key) use ($currentTime) {
                 $item->push('quantity');
                 $item->push('date');
