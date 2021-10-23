@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Response;
 
 class CartController extends Controller
 {
@@ -28,9 +29,7 @@ class CartController extends Controller
 
         $currentTime = Carbon::now('Europe/Moscow')->format('d/m/Y H:m');
 
-        return Product::where('project_id', $request->bearerToken())
-            ->where('id', $products_id)
-            //            ->find($products_id)
+        $productsInCart =  Product::where('project_id', $request->bearerToken())
             ->with([
                 //                'category' => function($query) use ($request) {
                 //                    $query->where('project_id', $request->bearerToken());
@@ -43,6 +42,7 @@ class CartController extends Controller
                 },
             ])
             ->get()
+            ->find($products_id)
             ->map(function($item, $key) use ($currentTime) {
                 $item->push('quantity');
                 $item->push('date');
@@ -52,6 +52,12 @@ class CartController extends Controller
             });
 
 
+
+        return $productsInCart;
+
+
+
+        Response::json(array( 'data' => array_values($yourDataArray) ) );
         //        $container = app();
         //        $session_token = $request->session()->get('_token', 'Такой сессии нет');
 
