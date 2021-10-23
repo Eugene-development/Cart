@@ -31,12 +31,6 @@ class CartController extends Controller
 
         $productsInCart =  Product::where('project_id', $request->bearerToken())
             ->with([
-                //                'category' => function($query) use ($request) {
-                //                    $query->where('project_id', $request->bearerToken());
-                //                },
-                //                'image' => function($query) use ($request) {
-                //                    $query->where('project_id', $request->bearerToken());
-                //                },
                 'size' . "." . 'price' => function($query) use ($request) {
                     $query->where('project_id', $request->bearerToken());
                 },
