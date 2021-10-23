@@ -26,7 +26,7 @@ class CartController extends Controller
             ->pluck('product_id');
 
 
-        $currentTime = Carbon::now('Europe/Moscow')->toDateTimeString();
+        $currentTime = Carbon::now('Europe/Moscow')->format('d-m-Y H:m');
 
         return Product::where('project_id', $request->bearerToken())
             ->where('id', $products_id)
