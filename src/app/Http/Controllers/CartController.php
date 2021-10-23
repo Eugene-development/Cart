@@ -8,6 +8,7 @@ use App\Http\Resources\Resource;
 use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class CartController extends Controller
 {
@@ -25,6 +26,8 @@ class CartController extends Controller
             ->pluck('product_id');
 
 
+        $currentTime = Carbon::now('Europe/Moscow')->toDateTimeString();
+
         return Product::where('project_id', $request->bearerToken())
             ->where('id', $products_id)
             //            ->find($products_id)
@@ -38,13 +41,15 @@ class CartController extends Controller
                 'size' . "." . 'price' => function($query) use ($request) {
                     $query->where('project_id', $request->bearerToken());
                 },
-            ])->get()
-            ->map(function($item, $key) {
+            ])
+            ->get()
+            ->map(function($item, $key) use ($currentTime) {
                 $item->push('quantity');
+                $item->push('date');
                 $item['quantity'] = '1';
+                $item['date'] = $currentTime;
                 return $item;
-            })
-            ;
+            });
 
 
         //        $container = app();
