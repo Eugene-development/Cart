@@ -13,6 +13,11 @@
 |
 */
 
+$router->get('/health', function () {
+    return 'Hello World';
+});
+
+
 $router->get('/get-cart/{param}', 'CartController@get');
 $router->post('/store-cart', 'CartController@store');
 $router->delete('/delete-cart-one/{param}/{param2}', 'CartController@deleteOne');
