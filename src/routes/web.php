@@ -23,5 +23,5 @@ $router->post('/store-cart', 'CartController@store');
 $router->delete('/delete-cart-one/{param}/{param2}', 'CartController@deleteOne');
 $router->delete('/delete-cart-all/{param2}', 'CartController@deleteAll');
 
-//$router->match(['get', 'post'], '/yandex/{total}', 'Cart\Yandex@yandex');
+$router->get('/yandex/{totalSum}', 'YandexCart@yandex');
 

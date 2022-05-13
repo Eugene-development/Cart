@@ -8,7 +8,8 @@
         "php": "^7.3|^8.0",
         "illuminate/session": "^8.33",
         "laravel/lumen-framework": "^8.0",
-        "nesbot/carbon": "^2.53"
+        "nesbot/carbon": "^2.53",
+        "yoomoney/yookassa-sdk-php": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
