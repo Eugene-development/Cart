@@ -46,8 +46,8 @@ class YandexCart extends Controller
                     'type' => 'redirect',
                     'return_url' => 'https://orbita-stroy.com',
                 ),
-                'capture' => true,
-                'description' => 'Заказ №1',
+                'capture' => false,
+                'description' => 'Оплата заказа с сайта',
             ),
             uniqid('', true)
         );
