@@ -32,10 +32,32 @@ class YandexCart extends Controller
         //        return redirect($payment->getConfirmation()->getConfirmationUrl());
 
 
+        // $totalSum = $request->totalSum;
+
+        // $client = new Client();
+        // $client->setAuth('909205', 'test_Tvv70YjCAqz79lslLXJ4SXR0yigfEH8JQwZczdPBZiY');
+        // $payment = $client->createPayment(
+        //     array(
+        //         'amount' => array(
+        //             'value' => $totalSum,
+        //             'currency' => 'RUB',
+        //         ),
+        //         'confirmation' => array(
+        //             'type' => 'redirect',
+        //             'return_url' => 'https://orbita-stroy.com',
+        //         ),
+        //         'capture' => false,
+        //         'description' => 'Оплата заказа с сайта',
+        //     ),
+        //     uniqid('', true)
+        // );
+
+
+
         $totalSum = $request->totalSum;
 
         $client = new Client();
-        $client->setAuth('909205', 'test_Tvv70YjCAqz79lslLXJ4SXR0yigfEH8JQwZczdPBZiY');
+        $client->setAuth('907558', 'live_mKauZ3RHGv_xJCjMU5ZEV1vEXAfPyYfQKYlU1xdtO7A');
         $payment = $client->createPayment(
             array(
                 'amount' => array(
@@ -54,5 +76,4 @@ class YandexCart extends Controller
 
         return $payment;
     }
-
 }
